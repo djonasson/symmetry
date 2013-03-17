@@ -7,3 +7,21 @@
 {<img src="https://badge.fury.io/rb/symmetry.png" alt="Gem Version" />}[http://badge.fury.io/rb/symmetry]
 
 Symmetry gives you a simple way of creating symmetric has_and_belongs_to_many relationships (friendships, neighbors, etc.) in your Active Record models.
+
+
+== Usage
+
+Define a symmetric relation:
+
+  class User < ActiveRecord::Base
+    symmetric_relation :friends
+  end
+
+Use it:
+
+  irb(main)> User.first.friendships
+
+
+== Installation
+
+  gem "symmetry"
