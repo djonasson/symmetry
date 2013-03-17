@@ -1,11 +1,9 @@
 = Symmetry
 
-*STATUS*: In development - not ready to be used.
-
 {<img src="https://travis-ci.org/djonasson/symmetry.png?branch=master" alt="Build Status" />}[https://travis-ci.org/djonasson/symmetry]
 {<img src="https://gemnasium.com/djonasson/symmetry.png" alt="Dependency Status" />}[https://gemnasium.com/djonasson/symmetry]
 {<img src="https://codeclimate.com/github/djonasson/symmetry.png" alt="Code Climate" />}[https://codeclimate.com/github/djonasson/symmetry]
 {<img src="https://coveralls.io/repos/djonasson/symmetry/badge.png?branch=master" alt="Coverage Status" />}[https://coveralls.io/r/djonasson/symmetry]
 {<img src="https://badge.fury.io/rb/symmetry.png" alt="Gem Version" />}[http://badge.fury.io/rb/symmetry]
 
-Symmetry is a Rails gem that provides you with...
+Symmetry gives you a simple way of creating symmetric has_and_belongs_to_many relationships (friendships, neighbors, etc.) in your Active Record models.
