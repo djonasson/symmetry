@@ -15,6 +15,9 @@ describe SymmetricRelationship do
     it "should respond to :neighbors" do
       ts.should respond_to :neighbors
     end
+    it "should respond to :neighborships" do
+      ts.should respond_to :neighborships
+    end
     it "should not have any neighbors before any have been added" do
       ts.neighbors.should be_empty
     end
