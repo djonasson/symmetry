@@ -14,8 +14,8 @@ Gem::Specification.new do |s|
     has_and_belongs_to_many relationships (friendships, neighbors, etc.) in
     your Active Record models.}
   s.description = %q{Symmetry gives you a simple way of creating symmetric
-    has_and_belongs_to_many relationships (friendships, neighbors, etc.) in
-    your Active Record models. More information can be found at:
+    has_and_belongs_to_many relationships (friends, neighbors, etc.) in your
+    Active Record models. More information can be found at:
     https://github.com/djonasson/worldwise}
 
   s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile",

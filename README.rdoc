@@ -6,7 +6,18 @@
 {<img src="https://coveralls.io/repos/djonasson/symmetry/badge.png?branch=master" alt="Coverage Status" />}[https://coveralls.io/r/djonasson/symmetry]
 {<img src="https://badge.fury.io/rb/symmetry.png" alt="Gem Version" />}[http://badge.fury.io/rb/symmetry]
 
-Symmetry gives you a simple way of creating symmetric has_and_belongs_to_many relationships (friendships, neighbors, etc.) in your Active Record models.
+Symmetry gives you a simple way of creating symmetric has_and_belongs_to_many relationships (friends, neighbors, etc.) in your Active Record models.
+
+
+== Installation
+
+Add it to your Gemfile:
+
+  gem "symmetry"
+
+Install the migrations:
+
+  rake symmetry_engine:install:migrations db:migrate
 
 
 == Usage
@@ -17,11 +28,37 @@ Define a symmetric relation:
     symmetric_relation :friends
   end
 
+  class Country < ActiveRecord::Base
+    symmetric_relation :neighbors, polymorphic_relation_name: :neighborships
+  end
+
 Use it:
 
-  irb(main)> User.first.friendships
+  # User
+
+  irb(main)> u = User.create(name: "Daniel")
+  => #<User id: 1, name: "Daniel", ...>
+
+  irb(main)> u.friends
+  => []
+
+  irb(main)> u.friend_relations
+  => []
 
 
-== Installation
+  # Country
 
-  gem "symmetry"
+  irb(main)> c = Country.create(name: "Sweden")
+  => #<Country id: 1, name: "Sweden", ...>
+
+  irb(main)> c.neighbors << Country.create(name: "Norway")
+  => [#<Country id: 2, name: "Norway", ...>]
+
+  irb(main)> c.neighbors
+  => [#<Country id: 2, name: "Norway", ...>]
+
+  irb(main)> Country.find(2).neighbors
+  => [#<Country id: 1, name: "Sweden", ...>]
+
+  irb(main)> c.neighborships
+  => [#<SymmetricRelationship id: 1, owner_id: 1, owner_type: "Country", relation_id: 2, relation_type: "Country", ...>]
