@@ -10,8 +10,13 @@ Gem::Specification.new do |s|
   s.authors     = ["Daniel Jonasson"]
   s.email       = ["daniel@guadeo.com"]
   s.homepage    = "https://github.com/djonasson/symmetry"
-  s.summary     = %q{}
-  s.description = %q{}
+  s.summary     = %q{Symmetry gives you a simple way of creating symmetric
+    has_and_belongs_to_many relationships (friendships, neighbors, etc.) in
+    your Active Record models.}
+  s.description = %q{Symmetry gives you a simple way of creating symmetric
+    has_and_belongs_to_many relationships (friendships, neighbors, etc.) in
+    your Active Record models. More information can be found at:
+    https://github.com/djonasson/worldwise}
 
   s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile",
     "README.rdoc"]
