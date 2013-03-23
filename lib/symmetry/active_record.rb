@@ -1,15 +1,15 @@
 module Symmetry
   module ActiveRecord
 
-    def symmetric_relation(relation_name, options = {})
-      options.assert_valid_keys(:polymorphic_relation_name)
+    def symmetric_relationship(relationship_name, options = {})
+      options.assert_valid_keys(:polymorphic_relationship_name)
 
-      relation_name_singular = relation_name.to_s.singularize
-      polymorphic_relation_name = options[:polymorphic_relation_name].presence || "#{relation_name_singular}_relations"
+      relationship_name_singular = relationship_name.to_s.singularize
+      polymorphic_relationship_name = options[:polymorphic_relationship_name].presence || "#{relationship_name_singular}_relationships"
 
-      attr_accessible "#{relation_name_singular}_ids"
-      has_many polymorphic_relation_name, class_name: "SymmetricRelationship", as: :owner, dependent: :destroy
-      has_many relation_name, through: polymorphic_relation_name, as: :relation, source: :relation, source_type: self.name
+      attr_accessible "#{relationship_name_singular}_ids"
+      has_many polymorphic_relationship_name, class_name: "SymmetricRelationship", as: :owner, dependent: :destroy, conditions: { relationship_name: relationship_name }
+      has_many relationship_name, through: polymorphic_relationship_name, as: :relation, source: :relation, source_type: self.name
     end
 
   end

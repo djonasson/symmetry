@@ -22,14 +22,14 @@ Install the migrations:
 
 == Usage
 
-Define a symmetric relation:
+Define a symmetric relationship:
 
   class User < ActiveRecord::Base
-    symmetric_relation :friends
+    symmetric_relationship :friends
   end
 
   class Country < ActiveRecord::Base
-    symmetric_relation :neighbors, polymorphic_relation_name: :neighborships
+    symmetric_relationship :neighbors, polymorphic_relationship_name: :neighborships
   end
 
 Use it:
@@ -42,7 +42,7 @@ Use it:
   irb(main)> u.friends
   => []
 
-  irb(main)> u.friend_relations
+  irb(main)> u.friend_relationships
   => []
 
 
@@ -61,4 +61,44 @@ Use it:
   => [#<Country id: 1, name: "Sweden", ...>]
 
   irb(main)> c.neighborships
-  => [#<SymmetricRelationship id: 1, owner_id: 1, owner_type: "Country", relation_id: 2, relation_type: "Country", ...>]
+  => [#<SymmetricRelationship id: 1, owner_id: 1, owner_type: "Country", relation_id: 2, relation_type: "Country", relationship_name: "neighbors" ...>, ...]
+
+It is possible to define multiple symmetric relationships on the same model:
+
+  class Politician
+    symmetric_relationship :friends
+    symmetric_relationship :enemies
+  end
+
+  irb(main)> p1 = Politician.create(name: 'A')
+  => #<Politician id: 1, name: "A", ...>
+
+  irb(main)> p2 = Politician.create(name: 'B')
+  => #<Politician id: 2, name: "B", ...>
+
+  irb(main)> p3 = Politician.create(name: 'C')
+  => #<Politician id: 3, name: "C", ...>
+
+  irb(main)> p1.friends
+  => []
+
+  irb(main)> p1.enemies
+  => []
+
+  irb(main)> p1.friends << p2
+  => [#<Politician id: 2, name: "B", ...>]
+
+  irb(main)> p1.enemies << p3
+  => [#<Politician id: 3, name: "C", ...>]
+
+  irb(main)> p1.friends.count
+  => 1
+
+  irb(main)> p1.enemies.count
+  => 1
+
+  irb(main)> p2.friends.count
+  => 1
+
+  irb(main)> p2.enemies.count
+  => 0

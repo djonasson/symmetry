@@ -45,16 +45,47 @@ describe SymmetricRelationship do
       ts.neighbors.should_not include(ts2)
       ts3.neighbors.should_not include(ts2)
     end
-    it "'create_symetric_relation' should be called after create" do
+    it "'create_symetric_relationship' should be called after create" do
       ts.save
-      ts.neighborships.any_instance.should_receive(:create_symetric_relation)
+      ts.neighborships.any_instance.should_receive(:create_symetric_relationship)
       ts.neighbors << ts2
     end
-    it "'destroy_symetric_relation' should be called after destroy" do
+    it "'destroy_symetric_relationship' should be called after destroy" do
       ts.save
       ts.neighbors << ts2
-      ts.neighborships.any_instance.should_receive(:destroy_symetric_relation)
+      ts.neighborships.any_instance.should_receive(:destroy_symetric_relationship)
       ts.destroy
+    end
+  end
+
+  context "an instance of an ActiveRecord class calling both 'symmetric_relation :neighbors' and 'symmetric_relation :friends'" do
+    let(:tds) { TestDoubleSymmetry.new }
+    let(:tds2) { TestDoubleSymmetry.new }
+    let(:tds3) { TestDoubleSymmetry.new }
+    it "should not have any neighbors or friends before any have been added" do
+      tds.neighbors.should be_empty
+      tds.friends.should be_empty
+    end
+    it "should have one neighbor and one friend after one of each has been added" do
+      tds.save
+      tds.neighbors << tds2
+      tds.friends << tds3
+      tds.neighbors.count.should == 1
+      tds.friends.count.should == 1
+    end
+    it "should create a SymmetricRelationship record with the correct 'relationship_name' set" do
+      tds.save
+      tds.neighbors << tds2
+      SymmetricRelationship.last.relationship_name.should == 'neighbors'
+      tds.friends << tds3
+      SymmetricRelationship.last.relationship_name.should == 'friends'
+    end
+    it "should find SymmetricRelationship records from the 'relationship_name'" do
+      tds.save
+      tds.neighbors << tds2
+      tds.friends << tds3
+      SymmetricRelationship.where(relationship_name: 'neighbors').count.should == 2
+      SymmetricRelationship.where(relationship_name: 'friends').count.should == 2
     end
   end
 

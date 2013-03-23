@@ -11,15 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130201161328) do
+ActiveRecord::Schema.define(:version => 20130323091106) do
 
   create_table "symmetric_relationships", :force => true do |t|
     t.integer  "owner_id"
     t.string   "owner_type"
     t.integer  "relation_id"
     t.string   "relation_type"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+    t.string   "relationship_name"
   end
 
 end
