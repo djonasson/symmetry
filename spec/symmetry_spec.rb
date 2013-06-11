@@ -11,7 +11,7 @@ describe "Symmetry" do
     end
   end
 
-  context "an instance of an ActiveRecord class calling 'symmetric_relation :neigbors'" do
+  context "an instance of an ActiveRecord class calling 'symmetric_relation'" do
     let(:ts) { TestSymmetry.new }
     it "should respond to :neighbors" do
       ts.should respond_to :neighbors

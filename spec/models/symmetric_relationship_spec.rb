@@ -26,8 +26,9 @@ describe SymmetricRelationship do
       ts.neighbors.should_not be_empty
     end
     it "should have two neighbors after two have been added" do
-      ts.save
       ts.neighbors << [ts2, ts3]
+      ts.save
+      ts.reload
       ts.neighbors.count.should == 2
     end
     it "should have a symetric neighbors association" do
@@ -56,6 +57,13 @@ describe SymmetricRelationship do
       ts.neighborships.any_instance.should_receive(:destroy_symetric_relationship)
       ts.destroy
     end
+    it "should be possible to create a new record by passing a hash" do
+      ts2.save
+      test = TestSymmetry.new({ "neighbor_ids"=>[ts2.id.to_s] })
+      test.save
+      test.reload
+      test.neighbors.should include(ts2)
+    end
   end
 
   context "an instance of an ActiveRecord class calling both 'symmetric_relation :neighbors' and 'symmetric_relation :friends'" do
@@ -67,9 +75,10 @@ describe SymmetricRelationship do
       tds.friends.should be_empty
     end
     it "should have one neighbor and one friend after one of each has been added" do
-      tds.save
       tds.neighbors << tds2
       tds.friends << tds3
+      tds.save
+      tds.reload
       tds.neighbors.count.should == 1
       tds.friends.count.should == 1
     end
