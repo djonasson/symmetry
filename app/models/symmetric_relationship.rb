@@ -1,6 +1,4 @@
 class SymmetricRelationship < ActiveRecord::Base
-  attr_accessible :owner_id, :owner_type, :relation_id, :relation_type, :relationship_name
-
   belongs_to :owner, polymorphic: true
   belongs_to :relation, polymorphic: true
 

@@ -9,10 +9,10 @@ def load_coverage
   unless ENV['DRB']
     require 'simplecov'
     require 'coveralls'
-    SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
+    SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new([
       SimpleCov::Formatter::HTMLFormatter,
       Coveralls::SimpleCov::Formatter
-    ]
+    ])
     SimpleCov.start 'rails'
     #Coveralls.wear!('rails')
   end
@@ -28,8 +28,15 @@ Spork.prefork do
   ENV["RAILS_ENV"] ||= 'test'
   require File.expand_path("../dummy/config/environment", __FILE__)
   require 'rspec/rails'
-  require 'rspec/autorun'
-  require 'shoulda/matchers/integrations/rspec'
+  #require 'rspec/autorun'
+
+  Shoulda::Matchers.configure do |config|
+    config.integrate do |with|
+      # Choose a test framework:
+      with.test_framework :rspec
+      with.library :rails
+    end
+  end
 
   # Requires supporting ruby files with custom matchers and macros, etc,
   # in spec/support/ and its subdirectories.
@@ -65,6 +72,8 @@ Spork.prefork do
     # the seed, which is printed after each run.
     #     --seed 1234
     config.order = "random"
+  
+    #config.raise_errors_for_deprecations!
   end
 end
 
