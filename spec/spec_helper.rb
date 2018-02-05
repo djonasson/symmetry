@@ -14,7 +14,7 @@ def load_coverage
       Coveralls::SimpleCov::Formatter
     ])
     SimpleCov.start 'rails'
-    #Coveralls.wear!('rails')
+    Coveralls.wear!('rails')
   end
 end
 
@@ -72,7 +72,7 @@ Spork.prefork do
     # the seed, which is printed after each run.
     #     --seed 1234
     config.order = "random"
-  
+
     #config.raise_errors_for_deprecations!
   end
 end
