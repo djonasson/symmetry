@@ -31,12 +31,12 @@ describe SymmetricRelationship, type: :model do
       ts.reload
       expect(ts.neighbors.count).to eq(2)
     end
-    it "should have a symetric neighbors association" do
+    it "should have a symmetric neighbors association" do
       ts.neighbors << [ts2, ts3]
       expect(ts2.neighbors).to include(ts)
       expect(ts3.neighbors).to include(ts)
     end
-    it "should ensure the destruction of symetric neighbors association when one neighbor is deleted" do
+    it "should ensure the destruction of symmetric neighbors association when one neighbor is deleted" do
       ts.neighbors << ts2
       ts2.neighbors << ts3
       ts2.destroy
@@ -44,13 +44,15 @@ describe SymmetricRelationship, type: :model do
       expect(ts.neighbors).not_to include(ts2)
       expect(ts3.neighbors).not_to include(ts2)
     end
-    it "'create_symetric_relationship' should be called after create" do
-      ts.neighborships.any_instance.should_receive(:create_symetric_relationship)
+    it "'create_symmetric_relationship' should be called after create" do
+      #ts.neighborships.any_instance.should_receive(:create_symmetric_relationship)
+      expect_any_instance_of(SymmetricRelationship).to receive(:create_symmetric_relationship)
       ts.neighbors << ts2
     end
-    it "'destroy_symetric_relationship' should be called after destroy" do
+    it "'destroy_symmetric_relationship' should be called after destroy" do
       ts.neighbors << ts2
-      ts.neighborships.any_instance.should_receive(:destroy_symetric_relationship)
+      #ts.neighborships.any_instance.should_receive(:destroy_symmetric_relationship)
+      expect_any_instance_of(SymmetricRelationship).to receive(:destroy_symmetric_relationship)
       ts.destroy
     end
     #it "should be possible to create a new record by passing a hash" do
