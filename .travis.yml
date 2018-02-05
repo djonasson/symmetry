@@ -1,9 +1,10 @@
 script: bundle exec rake app:test
 bundler_args: --without development
 rvm:
-  - 1.9.3
   - 2.0.0
+  - 2.3.4
+  - 2.4.2
+  - 2.5.0
 env:
-  - RAILS=3.0.20
-  - RAILS=3.1.11
-  - RAILS=3.2.13
+  - RAILS=5.0.6
+  - RAILS=5.1.4
