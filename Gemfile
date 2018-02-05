@@ -16,6 +16,8 @@ gemspec
 # To use debugger
 # gem 'debugger'
 
+gem 'rest-client', '> 1.7.3'
+
 group :development do
   gem "guard-rspec"
   gem "guard-spork"
