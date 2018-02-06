@@ -1,4 +1,4 @@
-script: bundle exec rake app:test
+script: bundle exec rails app:runtests
 bundler_args: --without development
 rvm:
   - 2.3.4

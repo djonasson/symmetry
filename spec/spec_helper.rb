@@ -45,6 +45,8 @@ Spork.prefork do
   require File.expand_path('../data/schema', __FILE__)
   require File.expand_path('../data/models', __FILE__)
 
+  #ActiveRecord::Migration.maintain_test_schema!
+
   RSpec.configure do |config|
     # ## Mock Framework
     #
