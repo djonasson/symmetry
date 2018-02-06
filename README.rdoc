@@ -17,18 +17,18 @@ Add it to your Gemfile:
 
 Install the migrations:
 
-  rake symmetry_engine:install:migrations db:migrate
+  rails symmetry_engine:install:migrations db:migrate
 
 
 == Usage
 
 Define a symmetric relationship:
 
-  class User < ActiveRecord::Base
+  class User < ApplicationRecord
     symmetric_relationship :friends
   end
 
-  class Country < ActiveRecord::Base
+  class Country < ApplicationRecord
     symmetric_relationship :neighbors, polymorphic_relationship_name: :neighborships
   end
 
@@ -65,7 +65,7 @@ Use it:
 
 It is possible to define multiple symmetric relationships on the same model:
 
-  class Politician
+  class Politician < ApplicationRecord
     symmetric_relationship :friends
     symmetric_relationship :enemies
   end
