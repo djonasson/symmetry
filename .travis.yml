@@ -16,3 +16,9 @@ before_install:
 # Pipe the coverage data to Code Climate
 after_script:
   - if [[ "$TRAVIS_TEST_RESULT" == 0 ]]; then ./cc-test-reporter upload-coverage; fi  # Upload coverage/codeclimate.json
+
+after_failure:
+  - "ls -alh ./spec/dummy/db/"
+  - "cat ./spec/dummy/config/database.yml"
+  - "echo $RAILS_ENV"
+  - "bundle exec rake --version"
