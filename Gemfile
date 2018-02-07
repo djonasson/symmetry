@@ -22,8 +22,6 @@ group :development do
   gem "guard-rspec"
   gem "guard-spork"
   gem "rb-inotify", ">= 0.9.0"
-  gem "awesome_print"
-  gem "rails-erd"
 end
 
 group :test do
