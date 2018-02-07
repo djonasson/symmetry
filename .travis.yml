@@ -1,24 +1,29 @@
-script: bundle exec rails app:runtests
+language: ruby
 bundler_args: --without development
+cache: bundler
 rvm:
   - 2.3.4
-  - 2.4.2
-  - 2.5.0
+  #- 2.4.2
+  #- 2.5.0
+
 env:
   - RAILS=5.0.6
-  - RAILS=5.1.4
+  #- RAILS=5.1.4
   global:
     CC_TEST_REPORTER_ID=f97766d2a79496038921fecfd13e482fb6c40b7f7336d2c02f216e1eb680c6ca
+
 before_install:
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
+
+script: bundle exec rails app:runtests
 
 # Pipe the coverage data to Code Climate
 after_script:
   - if [[ "$TRAVIS_TEST_RESULT" == 0 ]]; then ./cc-test-reporter upload-coverage; fi  # Upload coverage/codeclimate.json
 
 after_failure:
-  - "ls -alh ./spec/dummy/db/"
-  - "cat ./spec/dummy/config/database.yml"
-  - "echo $RAILS_ENV"
-  - "bundle exec rake --version"
+  - ls -alh ./spec/dummy/db/
+  - cat ./spec/dummy/config/database.yml
+  - echo $RAILS_ENV
+  - bundle exec rake --version
