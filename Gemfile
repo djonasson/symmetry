@@ -22,17 +22,15 @@ group :development do
   gem "guard-rspec"
   gem "guard-spork"
   gem "rb-inotify", ">= 0.9.0"
+  gem "sqlite3"
 end
 
 group :test do
-  gem "rspec-rails"
-  gem "spork"
   gem "capybara"
+  gem "coveralls", require: false
+  gem "rspec-rails"
   gem "shoulda-matchers"
   gem "simplecov", require: false
-  gem "coveralls", require: false
-end
-
-group :development, :test do
+  gem "spork"
   gem "sqlite3"
 end
