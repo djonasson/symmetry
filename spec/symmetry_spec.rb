@@ -2,6 +2,10 @@ require 'spec_helper'
 
 describe "Symmetry" do
 
+  it "should define a VERSION constant" do
+    expect(Symmetry).to be_const_defined(:VERSION)
+  end
+
   context "ActiveRecord::Base" do
     it "should respond to :symmetric_relation" do
       expect(ActiveRecord::Base).to respond_to(:symmetric_relationship)
