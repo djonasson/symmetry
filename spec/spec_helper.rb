@@ -42,10 +42,19 @@ Spork.prefork do
   # in spec/support/ and its subdirectories.
   Dir[Symmetry::Engine.root.join("spec/support/**/*.rb")].each { |f| require f }
 
+  def in_memory_database?
+    Rails.env.test? and Rails.configuration.database_configuration['test']['database'] == ':memory:'
+  end
+
+  if in_memory_database?
+    puts "creating sqlite in memory database"
+    load "#{Rails.root}/db/schema.rb"
+  end
+
   require File.expand_path('../data/schema', __FILE__)
   require File.expand_path('../data/models', __FILE__)
 
-  #ActiveRecord::Migration.maintain_test_schema!
+  ActiveRecord::Migration.maintain_test_schema!
 
   RSpec.configure do |config|
     # ## Mock Framework
